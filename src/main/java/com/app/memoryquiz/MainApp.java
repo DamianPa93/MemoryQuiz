@@ -19,7 +19,9 @@ public class MainApp extends Application {
         
         stage.setTitle("Memory Quiz");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
+        
     }
 
     /**
