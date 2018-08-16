@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Random;
-
 public class Lexicon {
     public Lexicon(){
         
