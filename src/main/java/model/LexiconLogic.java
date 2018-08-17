@@ -30,19 +30,14 @@ public class LexiconLogic {
         return list.get(n);
     }
     
-    public static List<Lexicon> rollQuiz(){
+    public static List<Lexicon> rollQuiz(int n){
+        List<Lexicon>temp = new ArrayList<Lexicon>(lexiconList);
         List<Lexicon> quizList = new ArrayList<Lexicon>();
-        int[] randoms = new int[3];
-        randoms[0] = roll(lexiconList.size());
-        do{
-            randoms[1] = roll(lexiconList.size());
-        } while (randoms[1] == randoms[0]);
-        do{
-            randoms[2] = roll(lexiconList.size());
-        } while ((randoms[2] == randoms[0]) || (randoms[2] == randoms[1]));
-        
-        for(int i = 0; i<3; i++){
-            quizList.add(lexiconList.get(randoms[i]));
+        int rnd;
+        for(int i = 0; i<n; i++){
+            rnd = roll(temp.size());
+            quizList.add(temp.get(rnd));
+            temp.remove(rnd);
         }
         return quizList;
     }

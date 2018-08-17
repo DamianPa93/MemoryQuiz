@@ -76,7 +76,7 @@ public class FXMLController implements Initializable {
     
     private void randomization(){
         List<Lexicon> tempList;
-        tempList = lexiconLogic.rollQuiz();
+        tempList = lexiconLogic.rollQuiz(3);
         Random rand = new Random();
         labelLexicon = tempList.get(rand.nextInt(tempList.size()));
         buttonLexicon = tempList;
