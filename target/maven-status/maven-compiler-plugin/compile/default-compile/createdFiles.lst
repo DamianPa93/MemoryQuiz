@@ -2,3 +2,4 @@ com\app\memoryquiz\FXMLController.class
 model\Lexicon.class
 com\app\memoryquiz\MainApp.class
 model\LexiconLogic.class
+com\app\memoryquiz\FXMLController$1.class

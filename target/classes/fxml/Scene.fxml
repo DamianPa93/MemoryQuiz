@@ -3,17 +3,22 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="180.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.memoryquiz.FXMLController">
+<AnchorPane id="AnchorPane" prefHeight="154.0" prefWidth="396.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.memoryquiz.FXMLController">
     <children>
-        <Button fx:id="button" layoutX="32.0" layoutY="62.0" onAction="#handleButtonAction" prefHeight="100.0" prefWidth="120.0" text="Click Me!" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
-      <Button fx:id="button2" layoutX="305.0" layoutY="62.0" onAction="#handleButtonAction2" prefHeight="100.0" prefWidth="120.0" text="Click Me!" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-      <Button fx:id="button1" layoutX="160.0" layoutY="62.0" onAction="#handleButtonAction1" prefHeight="100.0" prefWidth="120.0" text="Click Me!" AnchorPane.bottomAnchor="20.0" />
-      <Label id="label" fx:id="label" layoutX="160.0" layoutY="15.0" prefHeight="27.0" prefWidth="120.0" AnchorPane.topAnchor="20.0">
+      <Label id="label" fx:id="label" layoutX="138.0" layoutY="14.0" prefHeight="27.0" prefWidth="120.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
+      <HBox fx:id="hbboxx" layoutX="27.0" layoutY="51.0" prefHeight="96.0" prefWidth="343.0">
+         <children>
+              <Button fx:id="button" onAction="#handleButtonAction" prefHeight="100.0" prefWidth="120.0" text="Click Me!" />
+            <Button fx:id="button2" onAction="#handleButtonAction2" prefHeight="100.0" prefWidth="120.0" text="Click Me!" />
+            <Button fx:id="button1" onAction="#handleButtonAction1" prefHeight="100.0" prefWidth="120.0" text="Click Me!" />
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

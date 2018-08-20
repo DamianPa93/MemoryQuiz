@@ -6,16 +6,20 @@ import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import model.Lexicon;
 import model.LexiconLogic;
 
 public class FXMLController implements Initializable {
     @FXML
-    private Label label;   
+    private Label label;  
+    @FXML
+    private HBox hbboxx;
     @FXML
     private Button button;
     @FXML
@@ -27,6 +31,7 @@ public class FXMLController implements Initializable {
     Lexicon labelLexicon;
     List<Lexicon> buttonLexicon;
     List<Button> buttonList = new ArrayList<Button>();
+    int wordCounter = 2;
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -58,7 +63,8 @@ public class FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         lexiconLogic.fillLexicon();
-        initializeButtons();
+        //initializeButtons();
+        buttonTest(wordCounter);
         initializeQuiz();
     }
     
@@ -76,15 +82,33 @@ public class FXMLController implements Initializable {
     
     private void randomization(){
         List<Lexicon> tempList;
-        tempList = lexiconLogic.rollQuiz(3);
+        tempList = lexiconLogic.rollQuiz(wordCounter);  // 3
         Random rand = new Random();
         labelLexicon = tempList.get(rand.nextInt(tempList.size()));
         buttonLexicon = tempList;
     }
     
-    private void initializeButtons(){
-        buttonList.add(button);
+    /*private void initializeButtons(){
+        /*buttonList.add(button);
         buttonList.add(button1);
         buttonList.add(button2);
+        buttonTest(wordCounter); //3
+    } */
+    
+    
+    
+    private void buttonTest(int n){
+        for(int i =0; i<n; i++){
+            Button button = new Button();
+            
+            button.setOnAction(new EventHandler<ActionEvent>(){
+                @Override public void handle (ActionEvent e){
+                    System.out.println(labelLexicon.id);
+                }
+            });
+            buttonList.add(button);
+            hbboxx.getChildren().clear();
+            hbboxx.getChildren().addAll(buttonList);
+        }
     }
 }
