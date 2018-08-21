@@ -6,7 +6,7 @@
     <artifactId>MemoryQuiz</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
+    
     <name>MemoryQuiz</name>
 
     <properties>
@@ -104,5 +104,11 @@
             </plugin>
         </plugins>
     </build>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>8.40.14</version>
+        </dependency>
+    </dependencies>
 </project>
