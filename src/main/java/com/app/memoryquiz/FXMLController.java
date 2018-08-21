@@ -20,45 +20,12 @@ public class FXMLController implements Initializable {
     private Label label;  
     @FXML
     private HBox hbboxx;
-    @FXML
-    private Button button;
-    @FXML
-    private Button button1;
-    @FXML
-    private Button button2; 
     
     LexiconLogic lexiconLogic = new LexiconLogic();
     Lexicon labelLexicon;
     List<Lexicon> buttonLexicon;
     List<Button> buttonList = new ArrayList<Button>();
-    int wordCounter = 4;
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        if(buttonLexicon.get(0).id == labelLexicon.id){
-            System.out.println("CORRECT");
-            initializeQuiz();
-        }
-    }
-    
-    @FXML
-    private void handleButtonAction1(ActionEvent event) {
-        System.out.println("You clicked me! --1");
-        if(buttonLexicon.get(1).id == labelLexicon.id){
-            System.out.println("CORRECT");
-            initializeQuiz();
-        }
-    }
-    
-    @FXML
-    private void handleButtonAction2(ActionEvent event) {
-        System.out.println("You clicked me! --2");
-        if(buttonLexicon.get(2).id == labelLexicon.id){
-            System.out.println("CORRECT");
-            initializeQuiz();
-        }
-    } 
+    int wordCounter = 4; //button spawn count
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -109,6 +76,4 @@ public class FXMLController implements Initializable {
             n++;
         }   
     }
-    
-    
 }
