@@ -25,13 +25,13 @@ public class FXMLController implements Initializable {
     @FXML
     private Button button1;
     @FXML
-    private Button button2;
+    private Button button2; 
     
     LexiconLogic lexiconLogic = new LexiconLogic();
     Lexicon labelLexicon;
     List<Lexicon> buttonLexicon;
     List<Button> buttonList = new ArrayList<Button>();
-    int wordCounter = 2;
+    int wordCounter = 4;
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -58,19 +58,49 @@ public class FXMLController implements Initializable {
             System.out.println("CORRECT");
             initializeQuiz();
         }
-    }
+    } 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         lexiconLogic.fillLexicon();
-        //initializeButtons();
-        buttonTest(wordCounter);
+        initializeButtonLogic();
+    }
+    
+    private void initializeButtonLogic(){
+        randomization();
+        initializeButtons(wordCounter);
         initializeQuiz();
     }
     
+    private void randomization(){
+        List<Lexicon> tempList;
+        tempList = lexiconLogic.rollQuiz(wordCounter);
+        Random rand = new Random();
+        labelLexicon = tempList.get(rand.nextInt(tempList.size()));
+        buttonLexicon = tempList;
+    }
+    
+    private void initializeButtons(int n){
+        for(final Lexicon x: buttonLexicon){
+            Button button = new Button();
+            button.setOnAction(new EventHandler<ActionEvent>(){
+                @Override public void handle (ActionEvent e){
+                   if(x.id==labelLexicon.id){
+                        System.out.println("Correct");
+                        buttonList.clear();
+                        initializeButtonLogic();
+                   } else {
+                        System.out.println("Fail");
+                   }
+                }
+            });
+            buttonList.add(button);
+            hbboxx.getChildren().clear();
+            hbboxx.getChildren().addAll(buttonList);
+        }
+    }
+    
     private void initializeQuiz(){
-        randomization();
-        
         label.setText(labelLexicon.word);
         
         int n = 0;
@@ -80,35 +110,5 @@ public class FXMLController implements Initializable {
         }   
     }
     
-    private void randomization(){
-        List<Lexicon> tempList;
-        tempList = lexiconLogic.rollQuiz(wordCounter);  // 3
-        Random rand = new Random();
-        labelLexicon = tempList.get(rand.nextInt(tempList.size()));
-        buttonLexicon = tempList;
-    }
     
-    /*private void initializeButtons(){
-        /*buttonList.add(button);
-        buttonList.add(button1);
-        buttonList.add(button2);
-        buttonTest(wordCounter); //3
-    } */
-    
-    
-    
-    private void buttonTest(int n){
-        for(int i =0; i<n; i++){
-            Button button = new Button();
-            
-            button.setOnAction(new EventHandler<ActionEvent>(){
-                @Override public void handle (ActionEvent e){
-                    System.out.println(labelLexicon.id);
-                }
-            });
-            buttonList.add(button);
-            hbboxx.getChildren().clear();
-            hbboxx.getChildren().addAll(buttonList);
-        }
-    }
 }
