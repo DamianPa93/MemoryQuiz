@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="154.0" prefWidth="396.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.memoryquiz.FXMLController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="130.0" prefWidth="587.0" stylesheets="@../styles/dark-theme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.memoryquiz.FXMLController">
     <children>
-      <Label id="label" fx:id="label" layoutX="138.0" layoutY="14.0" prefHeight="27.0" prefWidth="120.0" AnchorPane.topAnchor="14.0">
+      <Label id="label" fx:id="label" layoutX="138.0" layoutY="14.0" prefHeight="25.0" stylesheets="@../styles/dark-theme.css" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <HBox fx:id="hbboxx" layoutX="27.0" layoutY="51.0" prefHeight="96.0" prefWidth="343.0" />
+      <HBox fx:id="hbboxx" layoutX="22.0" layoutY="51.0" prefHeight="141.0" prefWidth="390.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="60.0" />
+      <MenuBar fx:id="menuBar" prefHeight="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="menuItemClose" mnemonicParsing="false" onAction="#handleMenuItemCloseAction" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
     </children>
 </AnchorPane>

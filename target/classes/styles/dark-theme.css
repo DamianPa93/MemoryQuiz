@@ -1,0 +1,89 @@
+/* 
+    Created on : 2018-08-22, 11:54:55
+    Author     : asus
+*/
+
+* {
+    -fx-primary : #2A2E37;
+    -fx-secondary : #FFFF8D;
+    -fx-primarytext : #B2B2B2;
+}
+.root{
+    -fx-background-color: -fx-primary;
+}
+
+.button {
+    -fx-padding: 5 22 5 22;   
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #2A2E37;/*#1d1d1d;*/
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 11pt;
+    -fx-text-fill: #B2B2B2;/*#d8d8d8;*/
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:hover {
+    -fx-background-color: #C19401; /*#2D7D32 fajny zielony*/
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: #e2e2e2;
+  -fx-text-fill: #1d1d1d;;/*#1d1d1d;*/
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.button:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 0.6;
+}
+
+.label-bright {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-header {
+    -fx-font-size: 32pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.menu-bar {
+    -fx-background-color: derive(-fx-primary, 5%);/* derive(#1d1d1d,20%); */
+}
+
+.context-menu {
+    -fx-background-color: derive(#1d1d1d,50%);
+}
+/*
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.menu .left-container {
+    -fx-background-color: black;
+}*/

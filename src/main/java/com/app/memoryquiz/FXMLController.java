@@ -1,12 +1,11 @@
 package com.app.memoryquiz;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,15 +13,19 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Lexicon;
 import model.LexiconLogic;
 import org.controlsfx.control.Notifications;
 
 public class FXMLController implements Initializable {
+    //============================BUTTONS-LABEL-LOGIC===========================
     @FXML
     private Label label;  
     @FXML
@@ -31,9 +34,11 @@ public class FXMLController implements Initializable {
     LexiconLogic lexiconLogic = new LexiconLogic();
     Lexicon labelLexicon;
     List<Lexicon> buttonLexicon;
+    List<Lexicon> wrongAnswers = new ArrayList<Lexicon>();
+    List<Lexicon> correctAnswers = new ArrayList<Lexicon>();
     List<Button> buttonList = new ArrayList<Button>();
-    int wordCounter = 4; //button spawn count
-    int questionCounter = 10; //how many spawns
+    int wordCounter = 3; //button spawn count
+    int questionCounter = 5; //how many spawns
     int questionCounterInit = 0;
     
     @Override
@@ -44,7 +49,7 @@ public class FXMLController implements Initializable {
     
     private void initializeButtonLogic(){
         randomization();
-        initializeButtons(wordCounter);
+        initializeButtons();
         initializeQuiz();
     }
     
@@ -56,36 +61,40 @@ public class FXMLController implements Initializable {
         buttonLexicon = tempList;
     }
     
-    private void initializeButtons(int n){
+    private void initializeButtons(){
         for(final Lexicon x: buttonLexicon){
             Button button = new Button();
             button.setOnAction(new EventHandler<ActionEvent>(){
                 @Override public void handle (ActionEvent e){
                    if(x.id==labelLexicon.id){
-                       questionCounterInit++;
-                       System.out.println(questionCounterInit);
-                       System.out.println("Correct");
-                       buttonList.clear();
-                       initializeButtonLogic();
-                       result();
+                       System.out.println(initializeButtonsNotification("Correct"));
                    } else {
-                       questionCounterInit++;
-                       System.out.println(questionCounterInit);
-                       System.out.println("Fail");
-                       buttonList.clear();
-                       initializeButtonLogic();
-                       result();
+                       wrongAnswers.add(x);
+                       correctAnswers.add(labelLexicon);
+                       System.out.println(initializeButtonsNotification("Fail"));
+                       System.out.println(wrongAnswers.size() + " " + correctAnswers.size());
                    }
                 }
             });
+            button.prefWidthProperty().bind(hbboxx.widthProperty());
+            button.prefHeightProperty().bind(hbboxx.heightProperty());
             buttonList.add(button);
             hbboxx.getChildren().clear();
             hbboxx.getChildren().addAll(buttonList);
         }
     }
     
+    private String initializeButtonsNotification(String message){
+        questionCounterInit++;
+        buttonList.clear();
+        initializeButtonLogic();
+        resultNotification();
+        return message;
+    }
+    
     private void initializeQuiz(){
         label.setText(labelLexicon.word);
+        label.setAlignment(Pos.CENTER);
         
         int n = 0;
         for(Button x: buttonList){
@@ -94,11 +103,10 @@ public class FXMLController implements Initializable {
         }   
     }
     
-    private void result(){
+    private void resultNotification(){
         Image img = new Image("/icons/ok_img1.png");
         Notifications notificationBuilder = Notifications.create()
                 .title("Result")
-                .text("Mistakes:")
                 .graphic(new ImageView(img))
                 .hideAfter(Duration.seconds(5))
                 .position(Pos.TOP_RIGHT)
@@ -109,9 +117,33 @@ public class FXMLController implements Initializable {
                     }
                 });
         notificationBuilder.darkStyle();
-        if(questionCounterInit==questionCounter){
+        if(questionCounterInit==questionCounter && wrongAnswers.size()==0){
+            notificationBuilder.text("Success!");
             notificationBuilder.show();
             questionCounterInit=0;
+        }
+        else if(questionCounterInit==questionCounter){
+            StringBuilder sb = new StringBuilder();
+            sb.append("Mistakes:");
+            for(int i=0; i<wrongAnswers.size(); i++){
+                sb.append("\n" + correctAnswers.get(i).word + " to: " 
+                        + correctAnswers.get(i).translation
+                        + ", a nie : " + wrongAnswers.get(i).translation 
+                        + "( " + wrongAnswers.get(i).word.toUpperCase() + " )");
+            }
+            notificationBuilder.text(sb.toString());
+            notificationBuilder.show();
+            questionCounterInit=0;
+            wrongAnswers.clear();
+            correctAnswers.clear();
         }           
+    }
+    //=================================MENU-BAR=================================
+    @FXML
+    private MenuItem menuItemClose;
+    
+    @FXML
+    private void handleMenuItemCloseAction(ActionEvent event){
+        Platform.exit();
     }
 }

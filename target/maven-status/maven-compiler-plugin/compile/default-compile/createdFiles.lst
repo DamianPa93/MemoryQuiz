@@ -1,6 +1,8 @@
 com\app\memoryquiz\FXMLController.class
 com\app\memoryquiz\FXMLController$2.class
+model\LexiconLogic.class
+com\app\memoryquiz\MainApp$2.class
+com\app\memoryquiz\MainApp$1.class
 model\Lexicon.class
 com\app\memoryquiz\MainApp.class
-model\LexiconLogic.class
 com\app\memoryquiz\FXMLController$1.class
