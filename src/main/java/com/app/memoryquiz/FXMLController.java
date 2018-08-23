@@ -1,24 +1,33 @@
 package com.app.memoryquiz;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import model.Lexicon;
 import model.LexiconLogic;
@@ -139,11 +148,78 @@ public class FXMLController implements Initializable {
         }           
     }
     //=================================MENU-BAR=================================
-    @FXML
+    /*@FXML
     private MenuItem menuItemClose;
+    @FXML
+    private MenuItem menuItemOptions;*/
+    private int paramAnswers;
+    private int paramNotificationTime;
+    private int paramNotificationDelay;
+    private double xOffset = 0;
+    private double yOffset = 0;
+    
+    public void setOptionsParams(int paramAnswers, int paramNotificationTime, int paramNotificationDelay){
+        this.paramAnswers = paramAnswers;
+        this.paramNotificationTime = paramNotificationTime;
+        this.paramNotificationDelay = paramNotificationDelay;
+    }
+    
+    public void getOptionsParam(){
+        System.out.println("FXMLController:" + paramAnswers + "::" + paramNotificationTime + "::" + paramNotificationDelay);
+    }
+    
+    @FXML
+    private void handleMenuItemParams(ActionEvent event){
+        getOptionsParam();
+    }
     
     @FXML
     private void handleMenuItemCloseAction(ActionEvent event){
         Platform.exit();
+    }
+    @FXML
+    private void handleMenuItemOptionsAction(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Options.fxml")); // UNDECORATED*
+        Scene scene = new Scene(root, Color.TRANSPARENT);
+        final Stage stage = new Stage();
+        stage.setTitle("Options");
+        
+        stage.initStyle(StageStyle.DECORATED.UNDECORATED);    
+        root.setOnMousePressed(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+        root.setOnMouseDragged(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                stage.setX(event.getScreenX()-xOffset);
+                stage.setY(event.getScreenY()-yOffset);
+            }
+        }); 
+        
+        stage.setScene(scene);  
+        stage.show();
+        
+        
+        /*Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Options");
+        stage.setScene(scene);
+        stage.show();*/
+    }
+    @FXML
+    private void handleMenuItemResizableAction(ActionEvent event) throws IOException{
+        System.out.println("handleMenuItemOptionsAction()");
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+        /**/
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Copy");
+        stage.setScene(scene);
+        stage.show();
+        
     }
 }

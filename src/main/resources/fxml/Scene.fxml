@@ -20,6 +20,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
+                  <MenuItem fx:id="menuItemOptions" mnemonicParsing="false" onAction="#handleMenuItemOptionsAction" text="Options" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleMenuItemResizableAction" text="Resizable" />
               <MenuItem fx:id="menuItemClose" mnemonicParsing="false" onAction="#handleMenuItemCloseAction" text="Close" />
             </items>
           </Menu>
@@ -30,7 +32,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="menuItemParams" mnemonicParsing="false" onAction="#handleMenuItemParams" text="Check Params" />
             </items>
           </Menu>
         </menus>
