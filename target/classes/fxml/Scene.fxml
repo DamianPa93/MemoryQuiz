@@ -16,18 +16,13 @@
          </font>
       </Label>
       <HBox fx:id="hbboxx" layoutX="22.0" layoutY="51.0" prefHeight="141.0" prefWidth="390.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="60.0" />
-      <MenuBar fx:id="menuBar" prefHeight="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="29.0" prefWidth="587.0" styleClass="menu-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="110.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
                   <MenuItem fx:id="menuItemOptions" mnemonicParsing="false" onAction="#handleMenuItemOptionsAction" text="Options" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleMenuItemResizableAction" text="Resizable" />
               <MenuItem fx:id="menuItemClose" mnemonicParsing="false" onAction="#handleMenuItemCloseAction" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -37,5 +32,6 @@
           </Menu>
         </menus>
       </MenuBar>
+      <Label fx:id="labelScore" layoutX="535.0" layoutY="4.0" text="Label" AnchorPane.rightAnchor="16.0" />
     </children>
 </AnchorPane>

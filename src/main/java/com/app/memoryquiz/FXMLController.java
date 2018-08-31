@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,44 +17,44 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import model.Lexicon;
 import model.LexiconLogic;
 import org.controlsfx.control.Notifications;
 
+
+
 public class FXMLController implements Initializable {
     //============================BUTTONS-LABEL-LOGIC===========================
     @FXML
-    private Label label;  
+    private Label label;//Question text label for buttons answers
     @FXML
-    private HBox hbboxx;
+    private HBox hbboxx;//Keep together generated buttons
     
-    LexiconLogic lexiconLogic = new LexiconLogic();
-    Lexicon labelLexicon;
-    List<Lexicon> buttonLexicon;
-    List<Lexicon> wrongAnswers = new ArrayList<Lexicon>();
-    List<Lexicon> correctAnswers = new ArrayList<Lexicon>();
-    List<Button> buttonList = new ArrayList<Button>();
-    int wordCounter = 3; //button spawn count
-    int questionCounter = 5; //how many spawns
-    int questionCounterInit = 0;
+    LexiconLogic lexiconLogic = new LexiconLogic(); //Main controller logic, mostly responsible for random answers generation
+    Lexicon labelLexicon; //Lexicon which value is added to label.setText()
+    List<Lexicon> buttonLexicon; //list of rnd Lexicons which are added to button (at least one is equal to labelLexicon)
+    List<Lexicon> wrongAnswers = new ArrayList<Lexicon>(); //list of wrong answers per run
+    List<Lexicon> correctAnswers = new ArrayList<Lexicon>(); //list of corrected answers per run
+    public List<Button> buttonList = new ArrayList<Button>(); //list of button spawned
+    
+    public int paramAnswers = 3; //button spawn count
+    public int paramNotificationTime = 5; //how many spawns
+    public int paramNotificationDelay = 5; //notifitcation delay
+    int questionCounterInit = 0;//how many questions arleady loead
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        lexiconLogic.fillLexicon();
-        initializeButtonLogic();
+        lexiconLogic.fillLexicon(); //generate sample "database"
+        initializeButtonLogic(); //simple: roll answers,spawn buttons and set buttons text to randoms from lexiconLogic
+        showCurrentStep();
     }
     
-    private void initializeButtonLogic(){
+    public void initializeButtonLogic(){
         randomization();
         initializeButtons();
         initializeQuiz();
@@ -64,10 +62,10 @@ public class FXMLController implements Initializable {
     
     private void randomization(){
         List<Lexicon> tempList;
-        tempList = lexiconLogic.rollQuiz(wordCounter);
+        tempList = lexiconLogic.rollQuiz(paramAnswers); //get random Lexicon objects depends on paramAnswers value
         Random rand = new Random();
-        labelLexicon = tempList.get(rand.nextInt(tempList.size()));
-        buttonLexicon = tempList;
+        labelLexicon = tempList.get(rand.nextInt(tempList.size())); //set labelLexicon as one from randoms ones futher will exist as label.setText()
+        buttonLexicon = tempList; //set buttonLexicon list as possible answers from all initialized random list
     }
     
     private void initializeButtons(){
@@ -77,10 +75,12 @@ public class FXMLController implements Initializable {
                 @Override public void handle (ActionEvent e){
                    if(x.id==labelLexicon.id){
                        System.out.println(initializeButtonsNotification("Correct"));
+                       showCurrentStep();
                    } else {
-                       wrongAnswers.add(x);
-                       correctAnswers.add(labelLexicon);
+                       wrongAnswers.add(x); //add Lexicon which didnt match labelLexicon
+                       correctAnswers.add(labelLexicon);  //add actual labelLexicon to list so we can compare them in notification
                        System.out.println(initializeButtonsNotification("Fail"));
+                       showCurrentStep();
                        System.out.println(wrongAnswers.size() + " " + correctAnswers.size());
                    }
                 }
@@ -88,20 +88,20 @@ public class FXMLController implements Initializable {
             button.prefWidthProperty().bind(hbboxx.widthProperty());
             button.prefHeightProperty().bind(hbboxx.heightProperty());
             buttonList.add(button);
-            hbboxx.getChildren().clear();
-            hbboxx.getChildren().addAll(buttonList);
+            hbboxx.getChildren().clear(); //clear buttons so we can spawn another ones with new values
+            hbboxx.getChildren().addAll(buttonList); //add new created buttons to view
         }
     }
     
     private String initializeButtonsNotification(String message){
-        questionCounterInit++;
+        questionCounterInit++; 
         buttonList.clear();
         initializeButtonLogic();
         resultNotification();
         return message;
     }
     
-    private void initializeQuiz(){
+    private void initializeQuiz(){ //set labelText and buttonsText
         label.setText(labelLexicon.word);
         label.setAlignment(Pos.CENTER);
         
@@ -112,12 +112,12 @@ public class FXMLController implements Initializable {
         }   
     }
     
-    private void resultNotification(){
+    private void resultNotification(){  //show notification based on answers and above logic
         Image img = new Image("/icons/ok_img1.png");
         Notifications notificationBuilder = Notifications.create()
                 .title("Result")
                 .graphic(new ImageView(img))
-                .hideAfter(Duration.seconds(5))
+                .hideAfter(Duration.seconds(paramNotificationDelay))
                 .position(Pos.TOP_RIGHT)
                 .onAction(new EventHandler<ActionEvent>(){
                     @Override
@@ -126,12 +126,12 @@ public class FXMLController implements Initializable {
                     }
                 });
         notificationBuilder.darkStyle();
-        if(questionCounterInit==questionCounter && wrongAnswers.size()==0){
+        if(questionCounterInit==paramNotificationTime && wrongAnswers.size()==0){
             notificationBuilder.text("Success!");
             notificationBuilder.show();
             questionCounterInit=0;
         }
-        else if(questionCounterInit==questionCounter){
+        else if(questionCounterInit==paramNotificationTime){
             StringBuilder sb = new StringBuilder();
             sb.append("Mistakes:");
             for(int i=0; i<wrongAnswers.size(); i++){
@@ -147,79 +147,49 @@ public class FXMLController implements Initializable {
             correctAnswers.clear();
         }           
     }
+    
+    public void buttonsOptionsRefresh(){
+        buttonList.clear();
+        initializeButtonLogic();
+        showCurrentStep();
+    }
     //=================================MENU-BAR=================================
-    /*@FXML
-    private MenuItem menuItemClose;
     @FXML
-    private MenuItem menuItemOptions;*/
-    private int paramAnswers;
-    private int paramNotificationTime;
-    private int paramNotificationDelay;
-    private double xOffset = 0;
-    private double yOffset = 0;
+    private Label labelScore;//Keep actual number of question answered in cycle
     
-    public void setOptionsParams(int paramAnswers, int paramNotificationTime, int paramNotificationDelay){
-        this.paramAnswers = paramAnswers;
-        this.paramNotificationTime = paramNotificationTime;
-        this.paramNotificationDelay = paramNotificationDelay;
+    public void setOptionsParams(int paramAnswers,int paramNotificationTime, int paramNotificationDelay){
+        this.paramAnswers = paramAnswers; //set how many buttons with answer should be shown
+        this.paramNotificationTime = paramNotificationTime; //how many questions must by answered before result notification
+        this.paramNotificationDelay = paramNotificationDelay; //how much does notification hang before disaper
     }
     
-    public void getOptionsParam(){
-        System.out.println("FXMLController:" + paramAnswers + "::" + paramNotificationTime + "::" + paramNotificationDelay);
-    }
-    
-    @FXML
+    @FXML //temporary just for test
     private void handleMenuItemParams(ActionEvent event){
-        getOptionsParam();
+        System.out.println("FXMLController:" + paramAnswers + "::" + paramNotificationTime + "::" + paramNotificationDelay);
     }
     
     @FXML
     private void handleMenuItemCloseAction(ActionEvent event){
         Platform.exit();
     }
+    
     @FXML
     private void handleMenuItemOptionsAction(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Options.fxml")); // UNDECORATED*
-        Scene scene = new Scene(root, Color.TRANSPARENT);
-        final Stage stage = new Stage();
-        stage.setTitle("Options");
+       
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(FXMLController.class.getResource("/fxml/Options.fxml"));
+        Parent root = loader.load();
         
-        stage.initStyle(StageStyle.DECORATED.UNDECORATED);    
-        root.setOnMousePressed(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event){
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            }
-        });
-        root.setOnMouseDragged(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event){
-                stage.setX(event.getScreenX()-xOffset);
-                stage.setY(event.getScreenY()-yOffset);
-            }
-        }); 
-        
-        stage.setScene(scene);  
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
         stage.show();
         
-        
-        /*Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setTitle("Options");
-        stage.setScene(scene);
-        stage.show();*/
+        OptionsController controller = loader.getController(); //passing values through controllers
+        controller.setParentController(this);
     }
-    @FXML
-    private void handleMenuItemResizableAction(ActionEvent event) throws IOException{
-        System.out.println("handleMenuItemOptionsAction()");
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
-        /**/
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setTitle("Copy");
-        stage.setScene(scene);
-        stage.show();
-        
+    
+    private void showCurrentStep(){
+        labelScore.setText(questionCounterInit + "/" + paramNotificationTime);
     }
 }
+

@@ -35,11 +35,11 @@ public class LexiconLogic {
         List<Lexicon> quizList = new ArrayList<Lexicon>();
         int rnd;
         for(int i = 0; i<n; i++){
-            rnd = roll(temp.size());
-            quizList.add(temp.get(rnd));
-            temp.remove(rnd);
+            rnd = roll(temp.size()); //roll number from 0 to temp.size()
+            quizList.add(temp.get(rnd)); //add to final quizList random object from temp List
+            temp.remove(rnd); //remove object so it wont repeat next time
         }
-        return quizList;
+        return quizList; //return rolled quiz list
     }
     
     public static List<Lexicon> getList(){
