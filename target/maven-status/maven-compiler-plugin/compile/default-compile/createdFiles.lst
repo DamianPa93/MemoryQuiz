@@ -1,8 +1,8 @@
 com\app\memoryquiz\FXMLController.class
 com\app\memoryquiz\FXMLController$2.class
+com\app\memoryquiz\CrunchifyGetPropertyValue.class
 com\app\memoryquiz\OptionsController.class
 model\LexiconLogic.class
-com\app\memoryquiz\OptionsCallback.class
 model\Lexicon.class
 com\app\memoryquiz\MainApp.class
 com\app\memoryquiz\FXMLController$1.class

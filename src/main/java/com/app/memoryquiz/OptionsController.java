@@ -3,6 +3,8 @@ package com.app.memoryquiz;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,31 +30,41 @@ public class OptionsController implements Initializable{
     
     private FXMLController parentController;
     
-    private static int SLIDER_INIT_VALUE = 3;
-    private static int SLIDER_1_INIT_VALUE = 5;
-    private static int SLIDER_2_INIT_VALUE = 5;
-    private int paramAnswers;
-    private int paramNotificationTime;
-    private int paramNotificationDelay;
+    CrunchifyGetPropertyValue properties = new CrunchifyGetPropertyValue();
+    
+    private static int SLIDER_INIT_VALUE;// = 3;
+    private static int SLIDER_1_INIT_VALUE;// = 5;
+    private static int SLIDER_2_INIT_VALUE;// = 5;
+    public int paramAnswers;
+    public int paramNotificationTime;
+    public int paramNotificationDelay;
     
     public void setParentController(FXMLController parentController){ //set options params to parent controller
         this.parentController = parentController;
     }
     
     @Override
-    public void initialize(URL location, ResourceBundle resources) { //URL location, ResourceBundle resources
-       //=====NUMBER-OF-ANSWERS-VIEW=====
-       slider.setValue(SLIDER_INIT_VALUE);
-       field.setText(Integer.toString(SLIDER_INIT_VALUE));
-       field.textProperty().bind(slider.valueProperty().asString("%.0f")); // slider integer values only
-       //=NUMBER-OF-ANSWERS-BEFORE-NOTIF=
-       slider1.setValue(SLIDER_1_INIT_VALUE);
-       field1.setText(Integer.toString(SLIDER_1_INIT_VALUE));
-       field1.textProperty().bind(slider1.valueProperty().asString("%.0f")); // slider integer values only
-       //===========NOTIF-DELAY==========
-       slider2.setValue(SLIDER_2_INIT_VALUE);
-       field2.setText(Integer.toString(SLIDER_2_INIT_VALUE));
-       field2.textProperty().bind(slider2.valueProperty().asString("%.0f")); // slider integer values only
+    public void initialize(URL location, ResourceBundle resources) { 
+        try {
+        //URL location, ResourceBundle resources
+        //=====NUMBER-OF-ANSWERS-VIEW=====
+        SLIDER_INIT_VALUE = properties.getParamAnswersValue();
+        slider.setValue(SLIDER_INIT_VALUE);
+        field.setText(Integer.toString(SLIDER_INIT_VALUE));
+        field.textProperty().bind(slider.valueProperty().asString("%.0f")); // slider integer values only
+        //=NUMBER-OF-ANSWERS-BEFORE-NOTIF=
+        SLIDER_1_INIT_VALUE = properties.getParamNotificationTimeValue();
+        slider1.setValue(SLIDER_1_INIT_VALUE);
+        field1.setText(Integer.toString(SLIDER_1_INIT_VALUE));
+        field1.textProperty().bind(slider1.valueProperty().asString("%.0f")); // slider integer values only
+        //===========NOTIF-DELAY==========
+        SLIDER_2_INIT_VALUE = properties.getParamNotificationDelayValue();
+        slider2.setValue(SLIDER_2_INIT_VALUE);
+        field2.setText(Integer.toString(SLIDER_2_INIT_VALUE));
+        field2.textProperty().bind(slider2.valueProperty().asString("%.0f")); // slider integer values only
+        } catch (IOException ex) {
+            Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
     
     @FXML
