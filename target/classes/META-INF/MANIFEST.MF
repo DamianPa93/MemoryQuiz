@@ -1,67 +1,60 @@
 Manifest-Version: 1.0
-Implementation-Title: ControlsFX
-Bundle-Description: High quality UI controls and other tools to comple
- ment the core JavaFX distribution
-Bundle-SymbolicName: org.controlsfx
-Implementation-Version: 8.40.14
+Export-Package: org.apache.commons.configuration;version="1.10",org.ap
+ ache.commons.configuration.beanutils;version="1.10",org.apache.common
+ s.configuration.event;version="1.10",org.apache.commons.configuration
+ .interpol;version="1.10",org.apache.commons.configuration.plist;versi
+ on="1.10",org.apache.commons.configuration.reloading;version="1.10",o
+ rg.apache.commons.configuration.resolver;version="1.10",org.apache.co
+ mmons.configuration.tree;version="1.10",org.apache.commons.configurat
+ ion.tree.xpath;version="1.10",org.apache.commons.configuration.web;ve
+ rsion="1.10"
+Private-Package: PropertyList-1.0.dtd,digesterRules.xml,properties.dtd
+Implementation-Title: Apache Commons Configuration
+Built-By: henning
+Tool: Bnd-2.1.0.20130426-122213
+Implementation-Vendor: The Apache Software Foundation
+Implementation-Vendor-Id: org.apache
+Specification-Title: Apache Commons Configuration
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-SymbolicName: org.apache.commons.configuration
+X-Compile-Target-JDK: 1.5
+Implementation-Version: 1.10
+Specification-Vendor: The Apache Software Foundation
+Bundle-Name: Apache Commons Configuration
+Created-By: Apache Maven Bundle Plugin
+X-Compile-Source-JDK: 1.5
+Bundle-Vendor: The Apache Software Foundation
+Build-Jdk: 1.7.0_25
+Bundle-Version: 1.10.0
+Bnd-LastModified: 1382602834342
 Bundle-ManifestVersion: 2
-Bnd-LastModified: 1506289333000
-Specification-Title: Java Version 8 Update 40
-Import-Package: com.sun.javafx.collections,com.sun.javafx.css,com.sun.
- javafx.css.converters,com.sun.javafx.event,com.sun.javafx.runtime,com
- .sun.javafx.scene.control,com.sun.javafx.scene.control.behavior,com.s
- un.javafx.scene.control.skin,com.sun.javafx.scene.text,com.sun.javafx
- .scene.traversal,com.sun.javafx.webkit,com.sun.webkit,javafx.animatio
- n,javafx.application,javafx.beans,javafx.beans.binding,javafx.beans.p
- roperty,javafx.beans.value,javafx.collections,javafx.collections.tran
- sformation,javafx.concurrent,javafx.css,javafx.event,javafx.geometry,
- javafx.scene,javafx.scene.chart,javafx.scene.control,javafx.scene.con
- trol.cell,javafx.scene.image,javafx.scene.input,javafx.scene.layout,j
- avafx.scene.media,javafx.scene.paint,javafx.scene.shape,javafx.scene.
- text,javafx.scene.transform,javafx.scene.web,javafx.stage,javafx.util
- ,javafx.util.converter,javax.swing,javax.swing.table
-Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
-Tool: Bnd-3.2.0.201605172007
-Export-Package: org.controlsfx.control;uses:="javafx.beans.property,ja
- vafx.beans.value,javafx.collections,javafx.concurrent,javafx.css,java
- fx.event,javafx.geometry,javafx.scene,javafx.scene.control,javafx.sce
- ne.image,javafx.scene.input,javafx.scene.layout,javafx.scene.paint,ja
- vafx.scene.shape,javafx.stage,javafx.util,org.controlsfx.control.acti
- on,org.controlsfx.property.editor",org.controlsfx.control.action;uses
- :="javafx.beans,javafx.beans.property,javafx.collections,javafx.event
- ,javafx.scene,javafx.scene.control,javafx.scene.input,org.controlsfx.
- control",org.controlsfx.control.cell;uses:="javafx.scene.image,javafx
- .scene.media,javafx.scene.paint,org.controlsfx.control",org.controlsf
- x.control.decoration;uses:="javafx.collections,javafx.geometry,javafx
- .scene",org.controlsfx.control.spreadsheet;uses:="javafx.beans.proper
- ty,javafx.collections,javafx.event,javafx.scene,javafx.scene.control,
- javafx.util,javafx.util.converter",org.controlsfx.control.table;uses:
- ="javafx.beans.property,javafx.collections,javafx.collections.transfo
- rmation,javafx.scene,javafx.scene.control,javafx.util",org.controlsfx
- .control.table.model,org.controlsfx.control.textfield;uses:="javafx.b
- eans.property,javafx.event,javafx.scene,javafx.scene.control,javafx.u
- til",org.controlsfx.dialog;uses:="javafx.beans.property,javafx.collec
- tions,javafx.concurrent,javafx.scene,javafx.scene.control,javafx.scen
- e.text,javafx.util",org.controlsfx.glyphfont;uses:="javafx.beans.prop
- erty,javafx.scene.control,javafx.scene.paint,org.controlsfx.tools",or
- g.controlsfx.property;uses:="javafx.beans.value,javafx.collections,or
- g.controlsfx.control,org.controlsfx.property.editor",org.controlsfx.p
- roperty.editor;uses:="javafx.beans.value,javafx.scene,javafx.util,org
- .controlsfx.control",org.controlsfx.tools;uses:="javafx.beans.value,j
- avafx.scene,javafx.scene.control,javafx.scene.layout,javafx.scene.pai
- nt,javafx.stage,javafx.util",org.controlsfx.validation;uses:="javafx.
- beans.property,javafx.scene.control,org.controlsfx.validation.decorat
- ion",org.controlsfx.validation.decoration;uses:="javafx.scene,javafx.
- scene.control,org.controlsfx.control.decoration,org.controlsfx.valida
- tion"
-Bundle-Name: ControlsFX
-Bundle-Version: 8.40.14
-Private-Package: impl.build.transifex,impl.org.controlsfx,impl.org.con
- trolsfx.autocompletion,impl.org.controlsfx.behavior,impl.org.controls
- fx.i18n,impl.org.controlsfx.skin,impl.org.controlsfx.spreadsheet,impl
- .org.controlsfx.table,impl.org.controlsfx.tools,impl.org.controlsfx.t
- ools.rectangle,impl.org.controlsfx.tools.rectangle.change,impl.org.co
- ntrolsfx.version,impl.org.controlsfx.worldmap
-Created-By: 1.8.0_131 (Oracle Corporation)
-Specification-Version: 8.40.14
+Bundle-Description: Tools to assist in the reading of configuration/pr
+ eferences files in various formats.
+Bundle-DocURL: http://commons.apache.org/configuration/
+Import-Package: org.apache.commons.beanutils;resolution:=optional,org.
+ apache.commons.digester;resolution:=optional,org.apache.commons.diges
+ ter.substitution;resolution:=optional,org.apache.commons.digester.xml
+ rules;resolution:=optional,org.apache.commons.collections;resolution:
+ =optional,org.apache.commons.codec.binary;resolution:=optional,org.ap
+ ache.commons.jxpath;resolution:=optional,org.apache.commons.jxpath.ri
+ ;resolution:=optional,org.apache.commons.jxpath.ri.compiler;resolutio
+ n:=optional,org.apache.commons.jxpath.ri.model;resolution:=optional,o
+ rg.apache.xml.resolver;resolution:=optional,org.apache.xml.resolver.h
+ elpers;resolution:=optional,org.apache.xml.resolver.readers;resolutio
+ n:=optional,org.apache.xml.resolver.tools;resolution:=optional,javax.
+ servlet;resolution:=optional,org.apache.commons.jexl2;resolution:=opt
+ ional,org.apache.commons.vfs2;resolution:=optional,org.apache.commons
+ .vfs2.provider;resolution:=optional,javax.naming,javax.sql,javax.xml.
+ parsers,javax.xml.transform,javax.xml.transform.dom,javax.xml.transfo
+ rm.stream,org.apache.commons.lang,org.apache.commons.lang.exception,o
+ rg.apache.commons.lang.text,org.apache.commons.logging,org.apache.com
+ mons.logging.impl,org.w3c.dom,org.xml.sax,org.xml.sax.helpers
+Include-Resource: digesterRules.xml=src/main/resources/digesterRules.x
+ ml,properties.dtd=src/main/resources/properties.dtd,PropertyList-1.0.
+ dtd=src/main/resources/PropertyList-1.0.dtd,META-INF/LICENSE.txt=LICE
+ NSE.txt,META-INF/NOTICE.txt=NOTICE.txt
+Specification-Version: 1.10
+Implementation-Build: tags/CONFIGURATION_1_10RC2@r1535308; 2013-10-24 
+ 01:20:22-0700
+Archiver-Version: Plexus Archiver
 
