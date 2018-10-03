@@ -29,8 +29,6 @@ import model.LexiconLogic;
 import org.apache.commons.configuration.ConfigurationException;
 import org.controlsfx.control.Notifications;
 
-
-
 public class FXMLController implements Initializable {
     //============================BUTTONS-LABEL-LOGIC===========================
     @FXML
@@ -46,8 +44,8 @@ public class FXMLController implements Initializable {
     List<Lexicon> buttonLexicon; //list of rnd Lexicons which are added to button (at least one is equal to labelLexicon)
     List<Lexicon> wrongAnswers = new ArrayList<Lexicon>(); //list of wrong answers per run
     List<Lexicon> correctAnswers = new ArrayList<Lexicon>(); //list of corrected answers per run
-    public List<Button> buttonList = new ArrayList<Button>(); //list of button spawned
     
+    public List<Button> buttonList = new ArrayList<Button>(); //list of button spawned
     public int paramAnswers; //button spawn count
     public int paramNotificationTime; //how many spawns
     public int paramNotificationDelay; //notifitcation delay
@@ -56,9 +54,9 @@ public class FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            paramAnswers = properties.getParamAnswersValue();
-            paramNotificationTime = properties.getParamNotificationTimeValue();
-            paramNotificationDelay = properties.getParamNotificationDelayValue();
+            paramAnswers = properties.getConfigProperties("paramAnswers");
+            paramNotificationTime = properties.getConfigProperties("paramAnswers");
+            paramNotificationDelay = properties.getConfigProperties("paramAnswers");
         } catch (IOException ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -153,6 +151,7 @@ public class FXMLController implements Initializable {
                         + ", a nie : " + wrongAnswers.get(i).translation 
                         + "( " + wrongAnswers.get(i).word.toUpperCase() + " )");
             }
+            System.out.println("AT notificator code :" + sb.toString());
             notificationBuilder.text(sb.toString());
             notificationBuilder.show();
             questionCounterInit=0;
@@ -164,6 +163,8 @@ public class FXMLController implements Initializable {
     public void buttonsOptionsRefresh(){
         buttonList.clear();
         initializeButtonLogic();
+        questionCounterInit=0;
+        wrongAnswers.clear();
         showCurrentStep();
     }
     
@@ -171,6 +172,10 @@ public class FXMLController implements Initializable {
     
     @FXML
     private Label labelScore;//Keep actual number of question answered in cycle
+    
+    private void showCurrentStep(){
+        labelScore.setText(questionCounterInit + "/" + paramNotificationTime);
+    }
     
     public void setOptionsParams(int paramAnswers,int paramNotificationTime, int paramNotificationDelay){
         this.paramAnswers = paramAnswers; //set how many buttons with answer should be shown
@@ -180,16 +185,7 @@ public class FXMLController implements Initializable {
     
     @FXML //temporary just for test
     private void handleMenuItemParams(ActionEvent event) throws ConfigurationException{
-        //System.out.println("FXMLController:" + paramAnswers + "::" + paramNotificationTime + "::" + paramNotificationDelay);
-        /*try {
-            properties.getParamAnswersValue();
-            properties.getParamNotificationDelayValue();
-            properties.getParamNotificationTimeValue();
-            
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        propConfig.update(3,3,3);
+        System.out.println("Menu.Item.Help");
     }
     
     @FXML
@@ -201,34 +197,16 @@ public class FXMLController implements Initializable {
     private void handleMenuItemOptionsAction(ActionEvent event) throws IOException{
        
         FXMLLoader loader = new FXMLLoader();
-        //loader.setLocation(FXMLController.class.getResource("/fxml/Options.fxml"));
         loader.setLocation(OptionsController.class.getResource("/fxml/Options.fxml"));
         
         Parent root = loader.load();
         
         OptionsController controller = loader.getController(); //passing values through controllers
         controller.setParentController(this);
-        //
         controller.setOptionsParams(paramAnswers, paramNotificationTime, paramNotificationDelay);
-        //
+        
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
     }
-    
-    private void showCurrentStep(){
-        labelScore.setText(questionCounterInit + "/" + paramNotificationTime);
-    }
-    
-    //============================SAVE&LOAD-OPTIONS=============================
-    
-    private OptionsController optionsController;
-    
-    public void setOptionsController(OptionsController optionsController){
-        this.optionsController = optionsController;
-    }
-    
-    
-    
 }
-
