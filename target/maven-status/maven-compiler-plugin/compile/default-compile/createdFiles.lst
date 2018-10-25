@@ -5,5 +5,6 @@ com\app\memoryquiz\OptionsController.class
 model\LexiconLogic.class
 com\app\memoryquiz\CrunchifyUpdateConfig.class
 model\Lexicon.class
+com\app\memoryquiz\CrunchifyDataBase.class
 com\app\memoryquiz\MainApp.class
 com\app\memoryquiz\FXMLController$1.class
