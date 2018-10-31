@@ -2,8 +2,6 @@ package com.app.memoryquiz;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -185,13 +183,11 @@ public class FXMLController implements Initializable {
         this.paramNotificationDelay = paramNotificationDelay; //how much does notification hang before disaper
     }
     
-    CrunchifyDataBase con = new CrunchifyDataBase();
-    
     @FXML //temporary just for test
     private void handleMenuItemParams(ActionEvent event) throws ConfigurationException{
-        System.out.println("Menu.Item.Help");
-        
-        con.run();
+        System.out.println("Menu.Item.Help");      
+        //con.run();
+        //con.fillList();
     }
     
     @FXML
